@@ -1,10 +1,10 @@
 import { Plus } from "lucide-react";
 
-const Navbar = () => {
+const Navbar = ({title}) => {
   return (
     <div className="w-full h-15 py-4 me-8 flex justify-between border-b dark:border-b-gray-700 ">
       <h1 className="font-semibold  text-xl text-gray-600 dark:text-indigo-400">
-        REPORT
+       {title}
       </h1>
       <div className="flex justify-between items-center gap-8">
         <button className="font-semibold border-spacing-1 p-1  rounded-md bg-black text-gray-400">

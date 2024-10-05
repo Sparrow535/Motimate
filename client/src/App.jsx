@@ -12,12 +12,35 @@ function App() {
         <Sidebar />
         <div className="w-full me-8 flex flex-col justify-between">
           <div className="flex flex-col gap-3">
-            <Navbar />
-            <Routes>
-              <Route path="/report" element= {<Report />} />
-              <Route path="/home" element = {<Home />} />
-              <Route path="/task" element = {<Task />} />
-            </Routes>
+          <Routes>
+            <Route
+              path="/home"
+              element={
+                <>
+                  <Navbar title="Home" />
+                  <Home />
+                </>
+              }
+            />
+            <Route
+              path="/task"
+              element={
+                <>
+                  <Navbar title="My Task" />
+                  <Task />
+                </>
+              }
+            />
+            <Route
+              path="/report"
+              element={
+                <>
+                  <Navbar title="Report" />
+                  <Report />
+                </>
+              }
+            />
+          </Routes>
           </div>
         </div>
       </div>
@@ -26,3 +49,6 @@ function App() {
 }
 
 export default App;
+
+
+

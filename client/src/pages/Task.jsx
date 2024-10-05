@@ -1,8 +1,9 @@
+
 const Task = () => {
   return (
     <div>
-      Paste your TASK code here!!!
-      </div>
+      Paste your code here
+    </div>
   )
 }
 

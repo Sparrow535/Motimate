@@ -63,7 +63,7 @@ export default function Sidebar() {
                 <ListChecks className="inline-block w-6 h-6" />
                 {expanded && <span className="ml-3">MyTask</span>}
                 {!expanded && (
-                  <span className="absolute left-full ml-2 bg-gray-800 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="absolute left-full ml- bg-gray-800 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     MyTask
                   </span>
                 )}
@@ -74,7 +74,7 @@ export default function Sidebar() {
                 <ChartLine className="inline-block w-6 h-6" />
                 {expanded && <span className="ml-3">Report</span>}
                 {!expanded && (
-                  <span className="absolute left-full ml-2 bg-gray-800 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="absolute left-full ml-5 bg-gray-800 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                     Report
                   </span>
                 )}
@@ -91,7 +91,7 @@ export default function Sidebar() {
               )}
               {!expanded && (
                 <span className="absolute left-full ml-2 bg-gray-800 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                  Category 
+                  Category
                 </span>
               )}
             </button>
