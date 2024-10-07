@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate  } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Report from "./pages/Report";
@@ -12,35 +12,37 @@ function App() {
         <Sidebar />
         <div className="w-full me-8 flex flex-col justify-between">
           <div className="flex flex-col gap-3">
-          <Routes>
-            <Route
-              path="/home"
-              element={
-                <>
-                  <Navbar title="Home" />
-                  <Home />
-                </>
-              }
-            />
-            <Route
-              path="/task"
-              element={
-                <>
-                  <Navbar title="My Task" />
-                  <Task />
-                </>
-              }
-            />
-            <Route
-              path="/report"
-              element={
-                <>
-                  <Navbar title="Report" />
-                  <Report />
-                </>
-              }
-            />
-          </Routes>
+            <Routes>
+              {/* Redirect the root path to /home */}
+              <Route path="/" element={<Navigate to="/home" />} />
+              <Route
+                path="/home"
+                element={
+                  <>
+                    <Navbar title="Home" />
+                    <Home />
+                  </>
+                }
+              />
+              <Route
+                path="/task"
+                element={
+                  <>
+                    <Navbar title="My Task" />
+                    <Task />
+                  </>
+                }
+              />
+              <Route
+                path="/report"
+                element={
+                  <>
+                    <Navbar title="Report" />
+                    <Report />
+                  </>
+                }
+              />
+            </Routes>
           </div>
         </div>
       </div>
@@ -49,6 +51,3 @@ function App() {
 }
 
 export default App;
-
-
-

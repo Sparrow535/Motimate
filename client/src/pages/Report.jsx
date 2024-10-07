@@ -1,5 +1,5 @@
 import { CircleCheckBig, CircleDotDashed } from "lucide-react";
-import { Card, CardBody, CardHeader } from "@material-tailwind/react";
+import {  Card, CardBody, CardHeader } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
 
 const Report = () => {
@@ -173,6 +173,7 @@ const Report = () => {
           <Chart {...chartConfig} />
         </CardBody>
       </Card>
+
     </main>
   );
 };
