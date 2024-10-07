@@ -1,29 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 
 export default function OTPVerification(props) {
+  const inputRefs = useRef([]);
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (props.email) {
-      console.log("Password reset email sent to:", props.email);
+  const handleInputChange = (e, index) => {
+    const value = e.target.value;
+    if (/^[0-9]$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      setError(""); // Clear error when input is valid
+      if (value.length === 1 && index < inputRefs.current.length - 1) {
+        inputRefs.current[index + 1].focus();
+      }
+    } else if (value === "") {
+      const newOtp = [...otp];
+      newOtp[index] = "";
+      setOtp(newOtp);
     }
-  }, [props.email]);
+  };
 
-  const handleChange = (element, index) => {
-    if (isNaN(element.value)) return false;
-
-    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
-
-    // Focus on next input
-    if (element.nextSibling) {
-      element.nextSibling.focus();
+  const handleInputKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !e.target.value && index > 0) {
+      inputRefs.current[index - 1].focus();
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement OTP verification logic here
-    console.log("Entered OTP is:", otp.join(""));
+    if (otp.join("").length === 6) {
+      // Add any OTP validation logic here if needed
+      props.onFormSwitch("NewPassword");
+    } else {
+      setError("Please enter a 6-digit OTP");
+    }
+  };
+
+  const handleResendOTP = () => {
+    // Implement resend OTP logic here
+    console.log("Resend OTP clicked");
   };
 
   return (
@@ -36,27 +53,34 @@ export default function OTPVerification(props) {
           verify your account.
         </h4>
         <form className="otp-form" onSubmit={handleSubmit}>
-          {otp.map((data, index) => {
-            return (
+          {/* OTP input fields */}
+          <div className="otp-inputs">
+            {[...Array(6)].map((_, index) => (
               <input
-                className="otp-input"
-                type="text"
-                name="otp"
-                maxLength="1"
                 key={index}
-                value={data}
-                onChange={(e) => handleChange(e.target, index)}
-                onFocus={(e) => e.target.select()}
+                type="text"
+                maxLength="1"
+                className="otp-input"
+                ref={(el) => (inputRefs.current[index] = el)}
+                onChange={(e) => handleInputChange(e, index)}
+                onKeyDown={(e) => handleInputKeyDown(e, index)}
+                value={otp[index]}
               />
-            );
-          })}
-          <button type="submit">Verify</button>
+            ))}
+          </div>
+          {error && <p className="error">{error}</p>}
+          <button type="submit" className="continue-btn">
+            Continue
+          </button>
         </form>
         <button
           className="link-btn"
-          onClick={() => props.onFormSwitch("PasswordReset")}
+          onClick={() => props.onFormSwitch("login")}
         >
-          Back to Password Reset
+          Back to MotiMate
+        </button>
+        <button className="link-btn" onClick={handleResendOTP}>
+          Resend OTP
         </button>
       </div>
     </main>

@@ -5,9 +5,8 @@ export default function PasswordReset(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement password reset logic here
     console.log("Password reset email sent to:", email);
-    props.onFormSwitch("OTPVerification");
+    props.onFormSwitch("OTPVerification", email); // Pass email to OTPVerification
   };
 
   return (
@@ -33,7 +32,7 @@ export default function PasswordReset(props) {
         </form>
         <button
           className="link-btn"
-          onClick={() => props.onFormSwitch("Login")}
+          onClick={() => props.onFormSwitch("login")}
         >
           Back to MotiMate
         </button>

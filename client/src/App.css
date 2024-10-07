@@ -126,8 +126,28 @@ button {
 }
 
 .login-form button[type="submit"],
-.register-form button[type="submit"] {
+.register-form button[type="submit"],
+.otp-form button[type="submit"] {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 1rem;
+}
+.error {
+  color: red;
+}
+.otp-inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Adjust the gap between the OTP input boxes as needed */
+}
+
+.otp-input {
+  width: calc(
+    100% / 6 - 10px
+  ); /* Adjust the width to fit 6 input boxes horizontally */
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }

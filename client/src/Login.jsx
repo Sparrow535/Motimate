@@ -6,15 +6,58 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [showPasswordReset, setShowPasswordReset] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    let formErrors = {};
+    let isValid = true;
+
+    if (!email) {
+      isValid = false;
+      formErrors["email"] = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      isValid = false;
+      if (!email.includes("@")) {
+        formErrors["email"] = "Email is invalid. Missing '@' symbol.";
+      } else if (!email.includes(".")) {
+        formErrors["email"] = "Email is invalid. Missing '.' symbol.";
+      } else {
+        formErrors["email"] =
+          "Email is invalid. Please enter a valid email address.";
+      }
+    }
+
+    if (!pass) {
+      isValid = false;
+      formErrors["password"] = "Password is required";
+    } else if (pass.length < 6) {
+      isValid = false;
+      formErrors["password"] = "Password must be at least 6 characters long";
+    }
+
+    setErrors(formErrors);
+    return isValid;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
+    if (validateForm()) {
+      console.log(email);
+    }
   };
 
   const handleGoogleLogin = () => {
     // Implement Google login logic here
     console.log("Google login clicked");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (email && /\S+@\S+\.\S+/.test(email)) {
+        setShowPasswordReset(true);
+      }
+    }
   };
 
   if (showPasswordReset) {
@@ -33,7 +76,11 @@ export default function Login(props) {
         <div className="separator">
           <span>OR</span>
         </div>
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form
+          className="login-form"
+          onSubmit={handleSubmit}
+          onKeyDown={handleKeyDown}
+        >
           <label htmlFor="email">Email</label>
           <input
             value={email}
@@ -43,6 +90,7 @@ export default function Login(props) {
             id="email"
             name="email"
           />
+          <div className="error">{errors.email}</div>
           <label htmlFor="password">Password</label>
           <input
             value={pass}
@@ -52,6 +100,7 @@ export default function Login(props) {
             id="password"
             name="password"
           />
+          <div className="error">{errors.password}</div>
           <button
             className="link-btn"
             onClick={() => setShowPasswordReset(true)}
