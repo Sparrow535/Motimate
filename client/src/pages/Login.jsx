@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FaGoogle } from "react-icons/fa";
+import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 import PasswordReset from "./PasswordReset";
 
 export default function Login(props) {
@@ -47,7 +47,6 @@ export default function Login(props) {
   };
 
   const handleGoogleLogin = () => {
-    // Implement Google login logic here
     console.log("Google login clicked");
   };
 
@@ -65,23 +64,39 @@ export default function Login(props) {
   }
 
   return (
-    <main className="outermost-container">
-      <h1 className="logo">MotiMate</h1>
-      <div className="auth-form-container">
-        <h2>Welcome to MotiMate</h2>
-        <h4>To Get Started, Please Login</h4>
-        <button className="google-login-btn" onClick={handleGoogleLogin}>
-          <FaGoogle /> Login with Google
+    <main className="flex items-center justify-center min-h-screen bg-white text-gray-600">
+      <h1 className="absolute top-6 left-12 font-extrabold text-2xl text-gray-800">
+        Motimate
+      </h1>
+      <div className="flex flex-col w-96 h-96">
+        <h2 className="font-bold text-center text-2xl text-gray-800 mb-2">
+          Welcome to Motimate
+        </h2>
+        <h4 className="font-normal text-center text-gray-600 mb-6">
+          To Get Started, Please Login
+        </h4>
+
+        <button
+          className="flex items-center justify-center w-full p-2 text-lg font-semibold bg-gray-800 text-white rounded-2xl mb-3"
+          onClick={handleGoogleLogin}
+        >
+          <FcGoogle className="mr-2 w-6 h-6" /> Log in with Google
         </button>
-        <div className="separator">
-          <span>OR</span>
+
+        <div className="relative flex py-3 items-center mb-3">
+          <div className="flex-grow border-t border-gray-400"></div>
+          <span className="mx-4 text-gray-800 font-extrabold">OR</span>
+          <div className="flex-grow border-t border-gray-400"></div>
         </div>
+
         <form
-          className="login-form"
+          className="flex flex-col"
           onSubmit={handleSubmit}
           onKeyDown={handleKeyDown}
         >
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="text-left mb-1">
+            Email
+          </label>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -89,9 +104,13 @@ export default function Login(props) {
             placeholder="youremail@gmail.com"
             id="email"
             name="email"
+            className="p-2  mb-1 border border-gray-500 rounded-2xl"
           />
-          <div className="error">{errors.email}</div>
-          <label htmlFor="password">Password</label>
+          <div className="text-red-500 mb-2">{errors.email}</div>
+
+          <label htmlFor="password" className="text-left mb-1 ">
+            Password
+          </label>
           <input
             value={pass}
             onChange={(e) => setPass(e.target.value)}
@@ -99,22 +118,34 @@ export default function Login(props) {
             placeholder="*******"
             id="password"
             name="password"
+            className="p-2 border border-gray-500 rounded-2xl"
           />
-          <div className="error">{errors.password}</div>
+          <div className="text-red-500 mb-4">{errors.password}</div>
+
           <button
-            className="link-btn"
+            className="self-end text-gray-600 text-sm underline hover:text-gray-800 mb-3"
             onClick={() => setShowPasswordReset(true)}
           >
             Forgot your password?
           </button>
-          <button type="submit">Login</button>
+
+          <button
+            type="submit"
+            className="w-full p-2 bg-gray-800  text-white font-bold rounded-2xl"
+          >
+            Login
+          </button>
         </form>
-        <button
-          className="link-btn"
-          onClick={() => props.onFormSwitch("register")}
-        >
-          Don't have an account? Sign Up
-        </button>
+
+        <p className="mt-2">
+          Don`t have an account?
+          <a
+            className="ml-5 text-gray-600 text-sm underline hover:cursor-pointer"
+            onClick={() => props.onFormSwitch("register")}
+          >
+            Sign Up
+          </a>
+        </p>
       </div>
     </main>
   );

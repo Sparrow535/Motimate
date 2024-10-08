@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
-import Login from "./Login.jsx";
-import Register from "./Register.jsx";
-import PasswordReset from "./PasswordReset.jsx";
-import OTPVerification from "./otp.jsx";
-import NewPassword from "./NewPassword.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import PasswordReset from "./pages/PasswordReset.jsx";
+import OTPVerification from "./pages/otp.jsx";
+import NewPassword from "./pages/NewPassword.jsx";
 
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
