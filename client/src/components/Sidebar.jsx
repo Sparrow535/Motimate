@@ -1,3 +1,6 @@
+import { createContext, useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   House,
   AlignRight,
@@ -9,8 +12,6 @@ import {
   Plus,
 } from "lucide-react";
 
-import { createContext, useState } from "react";
-import { Link } from "react-router-dom";
 
 export const SidebarContext = createContext();
 
