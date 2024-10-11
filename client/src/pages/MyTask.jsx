@@ -1,10 +1,8 @@
 import { useState } from "react";
-import React from "react";
-import { CheckCircle, Circle, Trash2, X } from "lucide-react"; // Lucide icons
+import { CheckCircle, Circle } from "lucide-react"; // Lucide icons
 import "../css/MyTask.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "../components/Navbar"; // Correct relative path
 
 function Task() {
   const [tasks, setTasks] = useState([

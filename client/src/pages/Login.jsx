@@ -1,38 +1,35 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import PasswordReset from "./PasswordReset";
+// import PasswordReset from "./PasswordReset";
+import { Link } from "react-router-dom";
 
-export default function Login(props) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [showPasswordReset, setShowPasswordReset] = useState(false);
+  // const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
     let formErrors = {};
     let isValid = true;
 
-    if (!email) {
+    if (email === "") {
       isValid = false;
       formErrors["email"] = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       isValid = false;
-      if (!email.includes("@")) {
-        formErrors["email"] = "Email is invalid. Missing '@' symbol.";
-      } else if (!email.includes(".")) {
-        formErrors["email"] = "Email is invalid. Missing '.' symbol.";
-      } else {
-        formErrors["email"] =
-          "Email is invalid. Please enter a valid email address.";
-      }
+      formErrors["email"] = "Enter a valid email address";
     }
 
     if (!pass) {
       isValid = false;
       formErrors["password"] = "Password is required";
-    } else if (pass.length < 6) {
+    } else if (
+      !pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W])[a-zA-Z\d\W]{8,}$/)
+    ) {
       isValid = false;
-      formErrors["password"] = "Password must be at least 6 characters long";
+      formErrors["password"] =
+        "Password must be at least 8 characters long and contain at least one digit, one lowercase letter, and one uppercase letter";
     }
 
     setErrors(formErrors);
@@ -54,19 +51,16 @@ export default function Login(props) {
     if (e.key === "Enter") {
       e.preventDefault();
       if (email && /\S+@\S+\.\S+/.test(email)) {
-        setShowPasswordReset(true);
+        // setShowPasswordReset(true);
+        true; //pelden changed
       }
     }
   };
 
-  if (showPasswordReset) {
-    return <PasswordReset onFormSwitch={props.onFormSwitch} />;
-  }
-
   return (
     <main className="flex items-center justify-center min-h-screen bg-white text-gray-600">
       <h1 className="absolute top-6 left-12 font-extrabold text-2xl text-gray-800">
-        Motimate
+        <a href="/"> Motimate</a>
       </h1>
       <div className="flex flex-col w-96 h-96">
         <h2 className="font-bold text-center text-2xl text-gray-800 mb-2">
@@ -85,7 +79,7 @@ export default function Login(props) {
 
         <div className="relative flex py-3 items-center mb-3">
           <div className="flex-grow border-t border-gray-400"></div>
-          <span className="mx-4 text-gray-800 font-extrabold">OR</span>
+          <span className="mx-4 text-gray-500 font-extrabold">OR</span>
           <div className="flex-grow border-t border-gray-400"></div>
         </div>
 
@@ -115,37 +109,34 @@ export default function Login(props) {
             value={pass}
             onChange={(e) => setPass(e.target.value)}
             type="password"
-            placeholder="*******"
             id="password"
             name="password"
             className="p-2 border border-gray-500 rounded-2xl"
           />
           <div className="text-red-500 mb-4">{errors.password}</div>
 
-          <button
-            className="self-end text-gray-600 text-sm underline hover:text-gray-800 mb-3"
-            onClick={() => setShowPasswordReset(true)}
-          >
-            Forgot your password?
-          </button>
+          <Link to="/ForgotPassword" className="text-end">
+            <button className="self-end text-gray-600 text-sm underline hover:text-gray-800 mb-3">
+              Forgot your password?
+            </button>
+          </Link>
 
           <button
             type="submit"
             className="w-full p-2 bg-gray-800  text-white font-bold rounded-2xl"
           >
-            Login
+            <Link to="/User">Login</Link>
           </button>
+          <p className="mt-2 mb-5">
+            Don`t have an account?
+            <a
+              href="/Register"
+              className="ml-5 text-gray-600 text-sm underline hover:cursor-pointer"
+            >
+              Sign Up
+            </a>
+          </p>
         </form>
-
-        <p className="mt-2">
-          Don`t have an account?
-          <a
-            className="ml-5 text-gray-600 text-sm underline hover:cursor-pointer"
-            onClick={() => props.onFormSwitch("register")}
-          >
-            Sign Up
-          </a>
-        </p>
       </div>
     </main>
   );
