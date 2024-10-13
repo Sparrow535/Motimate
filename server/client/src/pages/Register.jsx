@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -9,6 +10,8 @@ export default function Register() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [errors, setErrors] = useState({});
   const [setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const validateForm = () => {
     let formErrors = {};
@@ -76,6 +79,7 @@ export default function Register() {
   const handleGoogleRegister = () => {
     window.location.href = "http://localhost:8000/auth/google";
     console.log("Google register clicked");
+    navigate("./Home.jsx");
   };
 
   return (
