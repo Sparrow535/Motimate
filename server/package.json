@@ -1,27 +1,39 @@
 {
-    "name": "server",
-    "version": "1.0.0",
-    "main": "index.js",
-    "engines": {
-        "node": "21.6.2",
-        "npm": "10.8.1"
-    },
-    "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js"
-    },
-    "author": "",
-    "license": "ISC",
-    "description": "",
-    "dependencies": {
-        "bcrypt": "^5.1.1",
-        "cookie-session": "^2.1.0",
-        "dotenv": "^16.4.5",
-        "express": "^4.20.0",
-        "mongoose": "^8.6.1",
-        "nodemon": "^3.1.4",
-        "passport": "^0.5.3",
-        "passport-google-oauth20": "^2.0.0",
-        "server": "file:"
-    }
+  "name": "serverm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "21.6.2",
+    "npm": "10.8.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "concurrently": "^9.0.1",
+    "cookie-session": "^2.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.20.0",
+    "mongoose": "^8.6.1",
+    "nodemon": "^3.1.4",
+    "passport": "^0.5.3",
+    "passport-google-oauth20": "^2.0.0",
+    "postcss": "^8.4.47",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
+    "react-just-parallax": "^3.1.16",
+    "react-router-dom": "^6.27.0",
+    "scroll-lock": "^2.1.5",
+    "serverm": "file:",
+    "tailwindcss": "^3.4.13"
+  }
 }

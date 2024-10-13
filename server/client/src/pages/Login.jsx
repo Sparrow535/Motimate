@@ -2,12 +2,14 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 // import PasswordReset from "./PasswordReset";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   // const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [errors, setErrors] = useState({});
+  const [setLoading] = useState(false);
 
   const validateForm = () => {
     let formErrors = {};
@@ -36,14 +38,31 @@ export default function Login() {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+      setLoading(true);
       console.log(email);
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/users/login",
+          {
+            email,
+            password: pass,
+          }
+        );
+        console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error in logging in ", error);
+        setErrors({ apiError: "Invalid credentials or server error" });
+        setLoading(false);
+      }
     }
   };
 
   const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:8000/auth/google";
     console.log("Google login clicked");
   };
 
@@ -125,7 +144,7 @@ export default function Login() {
             type="submit"
             className="w-full p-2 bg-gray-800  text-white font-bold rounded-2xl"
           >
-            <Link to="/User">Login</Link>
+            <Link to="User">Login</Link>
           </button>
           <p className="mt-2 mb-5">
             Don`t have an account?

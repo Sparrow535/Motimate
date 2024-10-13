@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -7,6 +8,7 @@ export default function Register() {
   const [pass, setPass] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [errors, setErrors] = useState({});
+  const [setLoading] = useState(false);
 
   const validateForm = () => {
     let formErrors = {};
@@ -47,14 +49,32 @@ export default function Register() {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log(email);
+      try {
+        setLoading(true);
+        const response = await axios.post(
+          "http://localhost:8000/api/users/register",
+          {
+            name,
+            email,
+            password: pass,
+          }
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.error(error.response.data);
+        setErrors(error.response.data.errors);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   const handleGoogleRegister = () => {
+    window.location.href = "http://localhost:8000/auth/google";
     console.log("Google register clicked");
   };
 
